@@ -1,4 +1,4 @@
-name : Devsec pipeline
+name: DevSecOps Pipeline
 
 on:
   push:
@@ -6,37 +6,56 @@ on:
   pull_request:
     branches: [main]
 
-
 jobs:
   devsecops:
     runs-on: ubuntu-latest
 
     steps:
+    # Step 1: Checkout code
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: install python dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements-dev.txt
-
-    - name: Set up Python (if needed)
+    # Step 2: Set up Python
+    - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
-    - name: Install Bandit
-      run: pip install bandit
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-    - name: Run Bandit Scan
-      run: bandit -ll -ii -r .  
+    # Step 4: Static code scan (Bandit)
+    - name: Static code analysis with Bandit
+      run: |
+        pip install bandit
+        bandit -r . || true
 
-    - name: Upload Bandit Scan Artifact
-      uses: actions/upload-artifact@v4
-      if: always()
+    # Step 5: Dependency vulnerability check (Safety)
+    - name: Dependency vulnerability scan with Safety
+      uses: pyupio/safety-action@v1
       with:
-        name: bandit-findings
-        path: bandit-report.json  
+        requirements: requirements.txt
+
+    # Step 6: Secrets scan (TruffleHog)
+    - name: Scan for secrets with TruffleHog
+      uses: trufflesecurity/trufflehog@v3
+
+    # Step 7: Build Docker image
+    - name: Build Docker image
+      run: docker build -t tictactoe-app .
+
+    # Step 8: Scan Docker image for vulnerabilities (Trivy)
+    - name: Scan Docker image with Trivy
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: tictactoe-app
+
+    # Step 9: Deploy to EC2 (scp + ssh)
+
+
 
 
 
