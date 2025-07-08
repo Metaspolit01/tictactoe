@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  tic-tac-toe:
+    build: .
+    container_name: tic-tac-toe-game
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    command: python server.py

@@ -1,0 +1,35 @@
+# Core Python packages for the Tic-tac-toe game server
+# These are the minimum requirements to run the game
+
+# HTTP Server (included in Python standard library - no external dependency needed)
+# http.server - Built-in Python module
+# socketserver - Built-in Python module
+# webbrowser - Built-in Python module
+# pathlib - Built-in Python module
+
+# Optional: Development and testing tools
+# Uncomment the lines below if you want additional development features
+
+# Flask (Alternative web framework for more advanced features)
+# flask==2.3.3
+
+# Requests (For making HTTP requests if adding API features)
+# requests==2.31.0
+
+# Python-dotenv (For environment variable management)
+# python-dotenv==1.0.0
+
+# Pytest (For testing if you want to add tests)
+# pytest==7.4.2
+
+# Black (Code formatter)
+# black==23.9.1
+
+# Flake8 (Linter)
+# flake8==6.1.0
+
+# Note: The current server.py uses only Python standard library modules
+# No external packages are required for basic functionality
+# 
+# To install optional packages, uncomment the lines above and run:
+# pip install -r requirements.txt 

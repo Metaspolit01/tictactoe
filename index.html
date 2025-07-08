@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tic Tac Toe</h1>
+            <div class="game-info">
+                <div class="status" id="status">Player X's turn</div>
+                <div class="score">
+                    <span>X: <span id="score-x">0</span></span>
+                    <span>O: <span id="score-o">0</span></span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="game-board" id="game-board">
+                <div class="cell" data-cell-index="0"></div>
+                <div class="cell" data-cell-index="1"></div>
+                <div class="cell" data-cell-index="2"></div>
+                <div class="cell" data-cell-index="3"></div>
+                <div class="cell" data-cell-index="4"></div>
+                <div class="cell" data-cell-index="5"></div>
+                <div class="cell" data-cell-index="6"></div>
+                <div class="cell" data-cell-index="7"></div>
+                <div class="cell" data-cell-index="8"></div>
+            </div>
+
+            <div class="controls">
+                <button id="reset-btn" class="btn">Reset Game</button>
+                <button id="new-game-btn" class="btn">New Game</button>
+            </div>
+        </main>
+
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <h2 id="modal-title">Game Over!</h2>
+                <p id="modal-message"></p>
+                <button id="modal-btn" class="btn">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

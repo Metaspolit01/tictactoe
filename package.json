@@ -1,0 +1,26 @@
+{
+  "name": "tic-tac-toe-game",
+  "version": "1.0.0",
+  "description": "A modern Tic-tac-toe game with beautiful UI and animations",
+  "main": "index.html",
+  "scripts": {
+    "start": "python server.py",
+    "serve": "python -m http.server 8000",
+    "live-server": "npx live-server --port=8000 --open=/index.html",
+    "http-server": "npx http-server -p 8000 -o"
+  },
+  "keywords": [
+    "tic-tac-toe",
+    "game",
+    "html5",
+    "css3",
+    "javascript",
+    "localhost"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "http-server": "^14.1.1"
+  }
+} 
