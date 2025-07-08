@@ -29,15 +29,13 @@ jobs:
       uses: actions/cache@v4.2.3    
 
     - name: Run Unit Tests
-      run: |
-        # Replace with your own test command
-        echo "No tests yet" 
+      uses: smu-chile/unit-test-action@v1.1.0
 
     - name: Check for secrets in code
-      uses: trufflesecurity/trufflehog@v3
+      uses: shundor/python-bandit-scan@v1.0
 
     - name: Dependency vulnerability scan
-      uses: pyupio/safety-action@v1
+      uses: lazy-actions/gitrivy@v3
       with:
         requirements: requirements-dev.txt
 
