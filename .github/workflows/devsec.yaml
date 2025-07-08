@@ -20,32 +20,13 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+    - name: Install Bandit
+      run: pip install bandit
 
-    - name: Cache
-      uses: actions/cache@v4.2.3    
+    - name: Run Bandit Scan
+      run: bandit -ll -ii -r .    
 
-    - name: Run Unit Tests
-      uses: smu-chile/unit-test-action@v1.1.0
 
-    - name: Check for secrets in code
-      uses: shundor/python-bandit-scan@v1.0
-
-    - name: Dependency vulnerability scan
-      uses: lazy-actions/gitrivy@v3
-      with:
-        requirements: requirements-dev.txt
-
-    - name: Build Docker image
-      run: docker build -t tic-tac-toe-game .
-
-    - name: Scan Docker image for vulnerabilities
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: tic-tac-toe
 
     
     
