@@ -41,7 +41,7 @@ jobs:
 
     # Step 6: Secrets scan (TruffleHog)
     - name: Scan for secrets with TruffleHog
-      uses: trufflesecurity/trufflehog@v3
+      uses: trufflesecurity/trufflehog@v2
 
     # Step 7: Build Docker image
     - name: Build Docker image
