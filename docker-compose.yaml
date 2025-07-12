@@ -3,6 +3,7 @@ version: '3.8'
 services:
   tic-tac-toe:
     build: .
+    image: tic-tac-toe:latest
     container_name: tic-tac-toe-game
     ports:
       - "8000:8000"
