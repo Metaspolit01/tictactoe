@@ -47,7 +47,7 @@ jobs:
 
    - name: Run Docker Scout
      run: |
-       docker scout ad tic-tac-toe:latest    
+       docker scout ad tic-tac-toe-game:latest    
 
    - name: notify on vurnabilities
      run: |
