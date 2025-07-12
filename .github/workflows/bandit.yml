@@ -40,19 +40,19 @@ jobs:
      run: |
        sudo apt update
        sudo apt install -y docker-compose
-       
-   - name: Running dockercompose   
+
+   - name: run docker-compose
      run: |
        docker-compose up --build -d
-
-   - name: downlaod dockerscout
+       
+   - name: Install Docker Scout
      run: |
        curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
-       sudo mv docker-scout /usr/local/bin/
+       echo "$HOME/.docker/cli-plugins" >> $GITHUB_PATH
        
    - name: Run Docker Scout
      run: |
-       docker scout ad tic-tac-toe-game:latest    
+       docker scout cves tic-tac-toe --exit-code 1    
 
    - name: notify on vurnabilities
      run: |
