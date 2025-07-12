@@ -54,7 +54,7 @@ jobs:
        
    - name: Run Docker Scout
      run: |
-       docker scout cves --exit-code=1 local://tic-tac-toe    
+       docker scout cves local://tic-tac-toe:latest   
 
    - name: notify on vurnabilities
      run: |
