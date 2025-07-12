@@ -54,14 +54,12 @@ jobs:
        
    - name: Run Docker Scout
      run: |
-       docker scout cves local://tic-tac-toe:latest   
+       docker scout cves local://tic-tac-toe:latest || {
+       echo "Docker Scout found vulnerabilities. Check the logs above."
+       exit 1
+       }  
 
-   - name: notify on vurnabilities
-     run: |
-        if [ $? -ne 0 ]; then
-            echo "Docker Scout found vulnerabilities. Check the logs above."
-            exit 1
-        fi
+
        
      
 
