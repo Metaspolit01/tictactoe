@@ -44,9 +44,8 @@ jobs:
 
     # 6. Build Docker images using docker-compose
     - name: Build Docker Images
-      run: docker-compose build
+      run: docker-compose up  --build -d
 
-    # 7. Run Trivy - Scan dependencies (requirements.txt)
     - name: Trivy - Scan Dependencies
       uses: aquasecurity/trivy-action@0.28.0
       with:
@@ -59,9 +58,11 @@ jobs:
     - name: Trivy - Scan Docker Images
       uses: aquasecurity/trivy-action@0.28.0
       with:
-        image-ref: metasploit01/tic-tac-toe:latest
+        image-ref: tic-tac-toe
         format: table
         ignore-unfixed: true
+
+
 
 
        
