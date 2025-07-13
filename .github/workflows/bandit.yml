@@ -49,10 +49,11 @@ jobs:
     - name: Trivy - Scan Dependencies
       uses: aquasecurity/trivy-action@0.28.0
       with:
-        scan-type: fs
+        scan-type: library
         scan-ref: requirements-dev.txt
         format: table
         ignore-unfixed: true
+        vuln-type: library
 
     # 8. Trivy - Scan Docker images
     - name: Trivy - Scan Docker Images
