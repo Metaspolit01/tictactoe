@@ -1,63 +1,67 @@
-name: devsec pipeline
+name: DevSecOps CI/CD Pipeline
 
 on:
- push:
-   branches: main
- pull_request:
-   branches: main
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
- checks:
-   name: run on version 
-   runs-on: ubuntu-latest
+  devsecops-checks:
+    name: DevSec Checks
+    runs-on: ubuntu-latest
 
-   steps:
-   - name: checkout code
-     uses: actions/checkout@v2
+    steps:
+    # 1. Checkout repo
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-   - name: set up python
-     uses: actions/setup-python@v5
-     with:
-       python-version: '3.10'
+    # 2. Set up Python for Bandit and dependency scan
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
 
-    # Step 3: Install dependencies
-   - name: Install dependencies
-     run: |
-       python -m pip install --upgrade pip
-       pip install -r requirements.txt
+    # 3. Install Python dependencies
+    - name: Install Python dependencies and Bandit
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install bandit
 
-   - name: sast scan
-     run: pip install bandit
+    # 4. Run Bandit (SAST)
+    - name: Run Bandit security scan
+      run: bandit -r . -ll -ii
 
-   - name: run bandit
-     run: bandit -r .
+    # 5. Set up Docker and Docker Compose
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v3
 
-   - name: Set up Docker Buildx
-     uses: docker/setup-buildx-action@v1
-  
-   - name: log into dockerhub
-     run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+    - name: Install Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-compose
 
-   - name: bulid docker-compose
-     run: |
-       sudo apt update
-       sudo apt install -y docker-compose
+    # 6. Build Docker images using docker-compose
+    - name: Build Docker Images
+      run: docker-compose build
 
-   - name: run docker-compose
-     run: |
-       docker-compose up --build -d
-       
-   - name: Install Docker Scout
-     run: |
-       curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
-       echo "$HOME/.docker/cli-plugins" >> $GITHUB_PATH
-       
-   - name: Run Docker Scout
-     run: |
-       docker scout cves local://tic-tac-toe:latest || {
-       echo "Docker Scout found vulnerabilities. Check the logs above."
-       exit 1
-       }  
+    # 7. Run Trivy - Scan dependencies (requirements.txt)
+    - name: Trivy - Scan Dependencies
+      uses: aquasecurity/trivy-action@0.28.0
+      with:
+        scan-type: fs
+        scan-ref: .
+        format: table
+        ignore-unfixed: true
+
+    # 8. Trivy - Scan Docker images
+    - name: Trivy - Scan Docker Images
+      uses: aquasecurity/trivy-action@0.28.0
+      with:
+        image-ref: metasploit01/tic-tac-toe:latest
+        format: table
+        ignore-unfixed: true
 
 
        
