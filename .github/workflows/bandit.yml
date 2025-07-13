@@ -46,14 +46,16 @@ jobs:
     - name: Build Docker Images
       run: docker-compose up  --build -d
 
-    - name: Trivy - Scan Dependencies
+    - name: Trivy - Scan Python Dependencies
       uses: aquasecurity/trivy-action@0.28.0
       with:
-        scan-type: library
-        scan-ref: requirements-dev.txt
+        scan-type: fs
+        scan-ref: .
         format: table
         ignore-unfixed: true
         vuln-type: library
+        severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+
 
     # 8. Trivy - Scan Docker images
     - name: Trivy - Scan Docker Images
