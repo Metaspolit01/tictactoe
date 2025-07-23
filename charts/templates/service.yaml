@@ -4,9 +4,10 @@ metadata:
   name: tic-tac-toe
 spec:
   selector:
-    app : tic-tac-toe
+    app: tic-tac-toe
   ports:
     - protocol: TCP
       port: 8000
       targetPort: 8000
-    type: Nodeport  
+  type: NodePort
+
