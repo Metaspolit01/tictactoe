@@ -1,0 +1,13 @@
+image:
+  repository: tic-tac-toe
+  tag: latest
+  pullPolicy: Never
+
+service:
+  type: NodePort
+  port: 8000
+
+ingress:
+  enabled: false
+
+

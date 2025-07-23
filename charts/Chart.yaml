@@ -1,0 +1,12 @@
+apiVersion: v2
+name: tictactoe-chart       # Your chart's name
+description: A Helm chart for Kubernetes deployment of TicTacToe app
+
+type: application           # Type of chart (application or library)
+
+version: 0.1.0              # Version of your chart (increment on changes)
+appVersion: "1.0"           # Version of your app (can be your app's version)
+
+# Optional dependencies (other charts this chart depends on)
+dependencies: []
+
