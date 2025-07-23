@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: tic-tac-toe-game
-        image: tic-tac-toe:latest
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: 8000
 
